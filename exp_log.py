@@ -1,14 +1,25 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.interpolate import make_interp_spline
 
-x_values = [0, 1, 2]
-y_values = [1, 4, 16]
+x_values = np.array([0, 1, 2, 3])
+y_values = np.array([1, 4, 16, 64])
 
-x_log_values = [1, 4, 16]
-y_log_values = [0, 1, 2]
+xnew = np.linspace(x_values.min(), x_values.max(), 100)
+spl = make_interp_spline(x_values, y_values, k=2)
+y_smooth = spl(xnew)
+plt.plot(xnew, y_smooth)
 
-plt.plot(x_values, y_values)
-plt.plot(x_log_values, y_log_values)
+x_log_values = np.array([1, 4, 16, 64])
+y_log_values = np.array([0, 1, 2, 3])
+
+xnew_log = np.linspace(x_log_values.min(), x_log_values.max(), 100)
+spl = make_interp_spline(x_log_values, y_log_values, k=2)
+y_smooth_log = spl(xnew_log)
+plt.plot(xnew_log, y_smooth_log)
+
+# plt.plot(x_values, y_values)
+# plt.plot(x_log_values, y_log_values)
 
 plt.ylabel('y')
 plt.xlabel('x')
